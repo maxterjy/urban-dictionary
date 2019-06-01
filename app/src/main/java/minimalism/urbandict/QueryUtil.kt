@@ -1,5 +1,6 @@
 package minimalism.urbandict
 
+import android.util.Log
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -92,9 +93,13 @@ class QueryUtil {
                 for(i in 0..arr.length()) {
                     val obj = arr.getJSONObject(i)
 
-                    val word = obj.getString("word")
-                    val definition = obj.getString("definition")
-                    val example = obj.getString("example")
+                    var word = obj.getString("word")
+                    var definition = obj.getString("definition")
+                    var example = obj.getString("example")
+
+                    word = format(word)
+                    definition = format(definition)
+                    example = format(example)
 
                     val item = Word(word, definition, example)
                     wordArray.add(item)
@@ -105,6 +110,13 @@ class QueryUtil {
             }
 
             return wordArray
+        }
+
+        fun format(str: String): String {
+            var out = str.replace("[", "")
+            out = out.replace("]", "")
+
+            return out
         }
     }
 }

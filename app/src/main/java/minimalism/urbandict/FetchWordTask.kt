@@ -4,14 +4,13 @@ import android.os.AsyncTask
 import android.util.Log
 import java.net.URL
 
-class FetchWordTask: AsyncTask<String, Void, ArrayList<Word>>() {
-
-    init {
-        Log.i("thach", "make task")
-    }
+class FetchWordTask(): AsyncTask<String, Void, ArrayList<Word>>() {
 
     var mFetchCallback: FetchWordCallback? = null
 
+    constructor(callback: FetchWordCallback):this() {
+        mFetchCallback = callback
+    }
 
     override fun onPreExecute() {
         super.onPreExecute()
