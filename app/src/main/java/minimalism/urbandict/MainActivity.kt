@@ -6,28 +6,23 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.StringBuilder
 
-class MainActivity : AppCompatActivity(), FetchWordCallback{
+class MainActivity : AppCompatActivity(){
 
-    override fun onComplete(words: ArrayList<Word>) {
+    val SEARCH_FRAGMENT_TAG = "search_fragment"
 
-        var builder = StringBuilder()
-
-        for (i in 0..words.size-1) {
-            builder.append(words[i])
-        }
-
-        tvHello.setText(builder.toString())
-    }
+    var mSearchFragment: SearchFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var tvHello = findViewById<TextView>(R.id.tvHello)
+        mSearchFragment = supportFragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG) as SearchFragment?
 
-        val task = FetchWordTask()
-        task.mFetchCallback = this
-        task.execute("hello")
-
+        if (mSearchFragment == null) {
+            mSearchFragment = SearchFragment()
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.fragment_container, mSearchFragment!!, SEARCH_FRAGMENT_TAG)
+            transaction.commit()
+        }
     }
 }

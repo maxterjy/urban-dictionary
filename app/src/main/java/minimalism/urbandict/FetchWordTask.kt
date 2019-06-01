@@ -6,6 +6,10 @@ import java.net.URL
 
 class FetchWordTask: AsyncTask<String, Void, ArrayList<Word>>() {
 
+    init {
+        Log.i("thach", "make task")
+    }
+
     var mFetchCallback: FetchWordCallback? = null
 
 
