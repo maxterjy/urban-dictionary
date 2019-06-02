@@ -33,10 +33,10 @@
     </fragment>
 
     <fragment
-            android:id="@+id/favoriteFragment"
-            android:name="minimalism.urbandict.FavoriteFragment"
-            android:label="Favorite"
-            tools:layout="@layout/fragment_favorite">
+            android:id="@+id/aboutFragment"
+            android:name="minimalism.urbandict.AboutFragment"
+            android:label="About"
+            tools:layout="@layout/fragment_about">
     </fragment>
 
 </navigation>
