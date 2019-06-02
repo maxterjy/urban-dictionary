@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:gravity="center">
+        <shape android:shape="rectangle">
+            <solid android:color="#ff3333"></solid>
+            <size android:width="36dp" android:height="36dp"></size>
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/ic_search"
+          android:width="24dp" android:height="24dp"
+          android:gravity="center">
+    </item>
+</layer-list>
