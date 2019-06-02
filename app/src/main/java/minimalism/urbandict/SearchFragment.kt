@@ -24,6 +24,7 @@ class SearchFragment : Fragment(), FetchWordCallback {
         super.onCreate(savedInstanceState)
 
         retainInstance = true
+        Log.i("thach", "create SearchFragment")
     }
 
     override fun onCreateView(

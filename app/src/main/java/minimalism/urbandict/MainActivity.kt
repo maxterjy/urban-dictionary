@@ -16,13 +16,13 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mSearchFragment = supportFragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG) as SearchFragment?
-
-        if (mSearchFragment == null) {
-            mSearchFragment = SearchFragment()
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.add(R.id.fragment_container, mSearchFragment!!, SEARCH_FRAGMENT_TAG)
-            transaction.commit()
-        }
+//        mSearchFragment = supportFragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG) as SearchFragment?
+//
+//        if (mSearchFragment == null) {
+//            mSearchFragment = SearchFragment()
+//            val transaction = supportFragmentManager.beginTransaction()
+//            transaction.add(R.id.fragment_container, mSearchFragment!!, SEARCH_FRAGMENT_TAG)
+//            transaction.commit()
+//        }
     }
 }
