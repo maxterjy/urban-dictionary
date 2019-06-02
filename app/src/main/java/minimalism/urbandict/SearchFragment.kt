@@ -10,21 +10,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.navigation.findNavController
 import org.w3c.dom.Text
 import java.lang.StringBuilder
 
 
-class SearchFragment : Fragment(), FetchWordCallback {
-
-    lateinit var mTvResult: TextView
-    var mIsSearching = false
-    lateinit var mFetchTask: FetchWordTask
+class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        retainInstance = true
-        Log.i("thach", "create SearchFragment")
     }
 
     override fun onCreateView(
@@ -35,50 +29,18 @@ class SearchFragment : Fragment(), FetchWordCallback {
 
         val edtKeyword = outView.findViewById<EditText>(R.id.edt_keyword)
         val btnSearch = outView.findViewById<Button>(R.id.btn_search)
-        mTvResult = outView.findViewById<TextView>(R.id.tv_result)
 
         btnSearch.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
                 val key = edtKeyword.text.toString()
-                startSearch(key)
+                goToSearchFragment(key)
             }
         })
 
-        return outView;
+        return outView
     }
 
-    fun startSearch(key: String){
-        if (mIsSearching) {
-            cancelSearch()
-        }
-
-        mFetchTask = FetchWordTask(this)
-        mFetchTask.execute(key)
-    }
-
-    fun cancelSearch() {
-        mIsSearching = false
-        mFetchTask.cancel(true)
-    }
-
-    fun finishSearch(words: ArrayList<Word>){
-        mIsSearching = false
-
-        var builder = StringBuilder()
-        for(i in 0..words.size-1) {
-            builder.apply {
-                append(words[i].definition + "\n")
-                append(words[i].example + "\n")
-
-                append("\n\n")
-            }
-        }
-
-        mTvResult.setText(builder.toString())
-    }
-
-
-    override fun onComplete(words: ArrayList<Word>) {
-        finishSearch(words)
+    fun goToSearchFragment(key: String) {
+        view?.findNavController()?.navigate(R.id.action_searchFragment_to_resultFragment)
     }
 }

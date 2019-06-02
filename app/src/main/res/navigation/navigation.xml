@@ -7,6 +7,16 @@
 
     <fragment android:id="@+id/searchFragment"
               android:name="minimalism.urbandict.SearchFragment"
-              android:label="SearchFragment"
-              tools:layout="@layout/fragment_search"/>
+              android:label="Search"
+              tools:layout="@layout/fragment_search">
+        <action
+                android:id="@+id/action_searchFragment_to_resultFragment"
+                app:destination="@id/resultFragment"
+                app:popUpTo="@+id/searchFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/resultFragment"
+            android:name="minimalism.urbandict.ResultFragment"
+            android:label="Result"
+            tools:layout="@layout/fragment_result"/>
 </navigation>
