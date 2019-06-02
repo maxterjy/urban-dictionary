@@ -41,6 +41,6 @@ class SearchFragment : Fragment() {
     }
 
     fun goToSearchFragment(key: String) {
-        view?.findNavController()?.navigate(R.id.action_searchFragment_to_resultFragment)
+        view?.findNavController()?.navigate(SearchFragmentDirections.actionSearchFragmentToResultFragment(key))
     }
 }

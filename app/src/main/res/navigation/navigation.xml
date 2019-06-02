@@ -14,9 +14,15 @@
                 app:destination="@id/resultFragment"
                 app:popUpTo="@+id/searchFragment"/>
     </fragment>
+
     <fragment
             android:id="@+id/resultFragment"
             android:name="minimalism.urbandict.ResultFragment"
             android:label="Result"
-            tools:layout="@layout/fragment_result"/>
+            tools:layout="@layout/fragment_result">
+            <argument
+                android:name="keyword"
+                app:argType="string"/>
+    </fragment>
+
 </navigation>

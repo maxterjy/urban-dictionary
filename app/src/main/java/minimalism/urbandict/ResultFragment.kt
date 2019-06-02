@@ -3,6 +3,7 @@ package minimalism.urbandict
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,7 @@ import androidx.navigation.findNavController
 import java.lang.StringBuilder
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_KEYWORD = "keyword"
 
 
 class ResultFragment : Fragment(), FetchWordCallback {
@@ -24,6 +24,13 @@ class ResultFragment : Fragment(), FetchWordCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+
+        val args = ResultFragmentArgs.fromBundle(arguments!!)
+        val keyword = args.keyword
+
+        Log.i("thach", "ResultFragment create $keyword")
+
+        startSearch(keyword)
     }
 
     override fun onCreateView(
@@ -33,6 +40,8 @@ class ResultFragment : Fragment(), FetchWordCallback {
         var outView = inflater.inflate(R.layout.fragment_result, container, false)
 
         mTvResult = outView.findViewById<TextView>(R.id.tv_result)
+
+        Log.i("thach", "ResultFragment createview")
 
         return outView
     }
@@ -65,8 +74,6 @@ class ResultFragment : Fragment(), FetchWordCallback {
         }
 
         mTvResult.setText(builder.toString())
-
-        view?.findNavController()?.navigate(R.id.action_searchFragment_to_resultFragment)
     }
 
 
