@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.navigation.findNavController
 import java.lang.StringBuilder
@@ -20,6 +21,7 @@ class ResultFragment : Fragment(), FetchWordCallback {
     lateinit var mTvResult: TextView
     var mIsSearching = false
     lateinit var mFetchTask: FetchWordTask
+    lateinit var mProgressBarFetch: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,8 @@ class ResultFragment : Fragment(), FetchWordCallback {
         var outView = inflater.inflate(R.layout.fragment_result, container, false)
 
         mTvResult = outView.findViewById<TextView>(R.id.tv_result)
+        mProgressBarFetch = outView.findViewById(R.id.progressbar_fetch)
+        mProgressBarFetch.visibility = View.VISIBLE
 
         Log.i("thach", "ResultFragment createview")
 
@@ -56,11 +60,13 @@ class ResultFragment : Fragment(), FetchWordCallback {
     }
 
     fun cancelSearch() {
+        mProgressBarFetch.visibility = View.INVISIBLE
         mIsSearching = false
         mFetchTask.cancel(true)
     }
 
     fun finishSearch(words: ArrayList<Word>){
+        mProgressBarFetch.visibility = View.INVISIBLE
         mIsSearching = false
 
         var builder = StringBuilder()

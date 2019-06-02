@@ -2,6 +2,8 @@ package minimalism.urbandict
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.view.View
 import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity(){
 
     var mSearchFragment: SearchFragment? = null
     lateinit var mNavController: NavController
+    lateinit var mBottombar: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +25,16 @@ class MainActivity : AppCompatActivity(){
 
         mNavController = findNavController(R.id.main_nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, mNavController)
+
+        mBottombar = findViewById(R.id.bottom_bar)
+        mNavController.addOnDestinationChangedListener{_, destination, _ ->
+            if (destination.id == R.id.resultFragment) {
+                mBottombar.visibility = View.GONE
+            }
+            else {
+                mBottombar.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
