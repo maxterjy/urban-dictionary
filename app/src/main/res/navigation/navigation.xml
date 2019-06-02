@@ -25,4 +25,18 @@
                 app:argType="string"/>
     </fragment>
 
+    <fragment
+            android:id="@+id/historyFragment"
+            android:name="minimalism.urbandict.HistoryFragment"
+            android:label="History"
+            tools:layout="@layout/fragment_history">
+    </fragment>
+
+    <fragment
+            android:id="@+id/favoriteFragment"
+            android:name="minimalism.urbandict.FavoriteFragment"
+            android:label="Favorite"
+            tools:layout="@layout/fragment_favorite">
+    </fragment>
+
 </navigation>

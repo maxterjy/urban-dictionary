@@ -3,11 +3,13 @@ package minimalism.urbandict
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.StringBuilder
 
@@ -35,9 +37,16 @@ class MainActivity : AppCompatActivity(){
                 mBottombar.visibility = View.VISIBLE
             }
         }
+        NavigationUI.setupWithNavController(mBottombar, mNavController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return mNavController.navigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        super.onOptionsItemSelected(item)
+
+        return NavigationUI.onNavDestinationSelected(item!!, mNavController)
     }
 }
