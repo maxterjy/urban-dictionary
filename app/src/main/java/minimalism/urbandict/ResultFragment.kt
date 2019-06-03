@@ -1,15 +1,23 @@
 package minimalism.urbandict
 
 
+import android.databinding.DataBindingUtil
+import android.databinding.DataBindingUtil.inflate
+import android.os.Build
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.text.Html
+import android.text.Spanned
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.navigation.findNavController
+import minimalism.urbandict.databinding.FragmentResultBinding
 import java.lang.StringBuilder
 
 
@@ -18,21 +26,22 @@ private const val ARG_KEYWORD = "keyword"
 
 class ResultFragment : Fragment(), FetchWordCallback {
 
-    lateinit var mTvResult: TextView
+
     var mIsSearching = false
     lateinit var mFetchTask: FetchWordTask
-    lateinit var mProgressBarFetch: ProgressBar
+    lateinit var mArgs: ResultFragmentArgs
+    lateinit var mFragmentBinding: FragmentResultBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
 
-        val args = ResultFragmentArgs.fromBundle(arguments!!)
-        val keyword = args.keyword
+        mArgs = ResultFragmentArgs.fromBundle(arguments!!)
 
-        Log.i("thach", "ResultFragment create $keyword")
+        (activity as AppCompatActivity).supportActionBar?.setTitle(mArgs.keyword)
 
-        startSearch(keyword)
+        startSearch(mArgs.keyword)
     }
 
     override fun onCreateView(
@@ -40,14 +49,18 @@ class ResultFragment : Fragment(), FetchWordCallback {
         savedInstanceState: Bundle?
     ): View? {
         var outView = inflater.inflate(R.layout.fragment_result, container, false)
+        mFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_result, container, false)
+        mFragmentBinding.progressbarFetch.visibility = View.VISIBLE
 
-        mTvResult = outView.findViewById<TextView>(R.id.tv_result)
-        mProgressBarFetch = outView.findViewById(R.id.progressbar_fetch)
-        mProgressBarFetch.visibility = View.VISIBLE
+        val viewManager = LinearLayoutManager(context)
 
-        Log.i("thach", "ResultFragment createview")
+        mFragmentBinding.recyclerViewWords.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+        }
 
-        return outView
+
+        return mFragmentBinding.root
     }
 
     fun startSearch(key: String){
@@ -60,26 +73,35 @@ class ResultFragment : Fragment(), FetchWordCallback {
     }
 
     fun cancelSearch() {
-        mProgressBarFetch.visibility = View.INVISIBLE
         mIsSearching = false
+        mFragmentBinding.progressbarFetch.visibility = View.INVISIBLE
         mFetchTask.cancel(true)
     }
 
     fun finishSearch(words: ArrayList<Word>){
-        mProgressBarFetch.visibility = View.INVISIBLE
         mIsSearching = false
+        mFragmentBinding.progressbarFetch.visibility = View.INVISIBLE
+//        mFragmentBinding.tvKeyword.setText(mArgs.keyword)
 
-        var builder = StringBuilder()
-        for(i in 0..words.size-1) {
-            builder.apply {
-                append(words[i].definition + "\n")
-                append(words[i].example + "\n")
+        showResultOnUI(words)
 
-                append("\n\n")
-            }
-        }
+//        var builder = StringBuilder()
+//        for(i in 0..words.size-1) {
+//            builder.apply {
+//                append(words[i].definition)
+//                append("\n")
+//                append(words[i].example)
+//
+//                append("\n\n")
+//            }
+//        }
+//
+//        mFragmentBinding.tvResult.setText(builder.toString())
+    }
 
-        mTvResult.setText(builder.toString())
+    private fun showResultOnUI(words: ArrayList<Word>) {
+        val wordAdapter = WordAdapter(words)
+        mFragmentBinding.recyclerViewWords.adapter = wordAdapter
     }
 
 

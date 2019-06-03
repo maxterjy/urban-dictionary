@@ -26,17 +26,17 @@
     </fragment>
 
     <fragment
-            android:id="@+id/historyFragment"
-            android:name="minimalism.urbandict.HistoryFragment"
+            android:id="@+id/bookmarkFragment"
+            android:name="minimalism.urbandict.BookmarkFragment"
             android:label="History"
-            tools:layout="@layout/fragment_history">
+            tools:layout="@layout/fragment_bookmark">
     </fragment>
 
-    <fragment
-            android:id="@+id/aboutFragment"
-            android:name="minimalism.urbandict.AboutFragment"
-            android:label="About"
-            tools:layout="@layout/fragment_about">
-    </fragment>
+    <!--<fragment-->
+            <!--android:id="@+id/aboutFragment"-->
+            <!--android:name="minimalism.urbandict.AboutFragment"-->
+            <!--android:label="About"-->
+            <!--tools:layout="@layout/fragment_about">-->
+    <!--</fragment>-->
 
 </navigation>

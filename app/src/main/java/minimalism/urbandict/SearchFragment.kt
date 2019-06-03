@@ -46,8 +46,7 @@ class SearchFragment : Fragment() {
 
         val btnSearch = outView.findViewById<Button>(R.id.btn_search)
         btnSearch.setOnClickListener {v ->
-            val key = edtKeyword.text.toString()
-            goToResultFragment(key)
+            edtKeyword.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
         }
 
         return outView
