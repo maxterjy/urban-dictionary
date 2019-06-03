@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
+import kotlinx.android.synthetic.main.fragment_search.*
 import org.w3c.dom.Text
 import java.lang.StringBuilder
 
@@ -36,7 +37,9 @@ class SearchFragment : Fragment() {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if ((actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) && event?.action == KeyEvent.ACTION_DOWN) {
                     val key = edtKeyword.text.toString()
+
                     goToResultFragment(key)
+
                     return true
                 }
 
@@ -54,5 +57,10 @@ class SearchFragment : Fragment() {
 
     fun goToResultFragment(key: String) {
         view?.findNavController()?.navigate(SearchFragmentDirections.actionSearchFragmentToResultFragment(key))
+    }
+
+    override fun onPause() {
+        edt_keyword?.setText("")
+        super.onPause()
     }
 }
