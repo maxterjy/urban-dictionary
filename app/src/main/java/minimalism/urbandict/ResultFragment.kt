@@ -31,6 +31,7 @@ class ResultFragment : Fragment(), FetchWordCallback {
     lateinit var mArgs: ResultFragmentArgs
     lateinit var mFragmentBinding: FragmentResultBinding
 
+    lateinit var mBookmarkDBHelper: BookmarkDBHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,8 @@ class ResultFragment : Fragment(), FetchWordCallback {
         (activity as AppCompatActivity).supportActionBar?.setTitle(mArgs.keyword)
         startSearch(mArgs.keyword)
         setHasOptionsMenu(true)
+
+        mBookmarkDBHelper = BookmarkDBHelper(context)
     }
 
     override fun onCreateView(
@@ -97,11 +100,21 @@ class ResultFragment : Fragment(), FetchWordCallback {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item!!.itemId == R.id.add_bookmark) {
-            Toast.makeText(context, "Added to bookmark", Toast.LENGTH_SHORT).show()
-
+            addBookmark()
             return true
         }
 
         return false
+    }
+
+    private fun addBookmark() {
+        val list = mBookmarkDBHelper.getAllItem()
+        if (list.contains(mArgs.keyword)) {
+            Toast.makeText(context, "Already added to bookmark", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        Toast.makeText(context, "Added to bookmark", Toast.LENGTH_SHORT).show()
+        mBookmarkDBHelper.addItem(mArgs.keyword)
     }
 }

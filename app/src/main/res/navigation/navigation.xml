@@ -12,7 +12,8 @@
         <action
                 android:id="@+id/action_searchFragment_to_resultFragment"
                 app:destination="@id/resultFragment"
-                app:popUpTo="@+id/searchFragment"/>
+                app:popUpTo="@+id/searchFragment"
+        />
     </fragment>
 
     <fragment
@@ -30,6 +31,9 @@
             android:name="minimalism.urbandict.BookmarkFragment"
             android:label="History"
             tools:layout="@layout/fragment_bookmark">
+        <action android:id="@+id/action_bookmarkFragment_to_resultFragment" app:destination="@id/resultFragment"
+                app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left"
+        />
     </fragment>
 
     <!--<fragment-->
