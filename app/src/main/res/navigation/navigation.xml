@@ -19,7 +19,6 @@
     <fragment
             android:id="@+id/resultFragment"
             android:name="minimalism.urbandict.ResultFragment"
-            android:label="Result"
             tools:layout="@layout/fragment_result">
             <argument
                 android:name="keyword"
@@ -29,7 +28,7 @@
     <fragment
             android:id="@+id/bookmarkFragment"
             android:name="minimalism.urbandict.BookmarkFragment"
-            android:label="History"
+            android:label="Bookmark"
             tools:layout="@layout/fragment_bookmark">
         <action android:id="@+id/action_bookmarkFragment_to_resultFragment" app:destination="@id/resultFragment"
         />
