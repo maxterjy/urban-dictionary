@@ -1,7 +1,7 @@
 # English Urban Dictionary
 
 ## Summary
-An Android application to search English urban vocabulary based on 
+An Android application to search English urban vocabulary based on  
 https://www.urbandictionary.com/  
   
 Features
